@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: datalens
+      POSTGRES_USER: datalens
+      POSTGRES_PASSWORD: datalens
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro
+
+  bff:
+    build: ./bff
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgres://datalens:datalens@postgres:5432/datalens
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - bff
+
+volumes:
+  pgdata:
