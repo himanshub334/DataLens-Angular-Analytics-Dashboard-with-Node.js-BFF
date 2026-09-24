@@ -40,52 +40,6 @@ PostgreSQL
 
 The BFF is intentionally responsible for adapting database results into UI-oriented DTOs. Angular never accesses PostgreSQL directly.
 
-## Run with Docker
-
-Prerequisites: Docker Desktop.
-
-```bash
-docker compose up --build
-```
-
-Open:
-
-- Dashboard: http://localhost:4200
-- BFF: http://localhost:3000
-- Health: http://localhost:3000/health
-
-## Run locally
-
-### Database
-
-```bash
-docker compose up -d postgres
-```
-
-### BFF
-
-```bash
-cd bff
-npm install
-npm run dev
-```
-
-### Angular
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-## API
-
-```text
-GET /health
-GET /api/dashboard?from=2026-01-01&to=2026-01-31
-GET /api/transactions?from=2026-01-01&to=2026-01-31
-```
-
 The dashboard endpoint returns:
 
 ```json
@@ -98,14 +52,6 @@ The dashboard endpoint returns:
 }
 ```
 
-This keeps Angular decoupled from the database schema.
-
-## Tests
-
-```bash
-cd bff
-npm test
-```
 
 ## GitHub
 
